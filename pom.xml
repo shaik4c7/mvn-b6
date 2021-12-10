@@ -19,3 +19,13 @@
     <finalName>flipkart</finalName>
   </build>
 </project>
+<project ...>
+  ...
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/mvn-b6/mvn-b6</url>
+    </repository>
+  </distributionManagement>
+</project>
