@@ -16,6 +16,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>flipkart</finalName>
+    <finalName>flipkart1</finalName>
   </build>
  </project>
