@@ -35,7 +35,4 @@ jobs:
       timeout-minutes: 5
       env:
        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    - name: Publish package
-      run: mvn deploy
-      env:
-       GITHUB_TOKEN: ${{ secrets.token }}
+   
