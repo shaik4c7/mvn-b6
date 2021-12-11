@@ -1,0 +1,13 @@
+This is an Example for CI/CD using GitHub Actions
+Pre-Req:
+1. Sonarqube and Tomcat installed on GCP/AWS/Azure VM.
+2. Create secrets in Repository Settings (SONAR_TOKEN,SONAR_HOST_URL,TOM_USERNAME and TOM_PASSWD)
+SONAR_TOKEN = username for SONARQUBE
+SONAR_HOST_URL = SONARQUBE server URL
+TOM_USERNAME = admin
+TOM_PASSWD = tomcat admin's passwd
+3. Add a file sonar-project.properties using the below code
+sonar.projectKey=mvn-b6
+sonar.java.binaries=.
+sonar.exclusions=build/**
+4. Create the Actions workflow using Build with Maven and Add the tasks accordingly.
