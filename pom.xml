@@ -18,10 +18,4 @@
   <build>
     <finalName>flipkart</finalName>
   </build>
-  <distributionManagement>
-  <repository>
-    <id>com.tcs</id>       
-    <url>https://github.com/Samatha2627/mvn-b6.git</url> 
-  </repository>
-  </distributionManagement>
-</project>
+ </project>
