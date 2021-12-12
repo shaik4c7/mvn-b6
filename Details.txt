@@ -1,13 +1,80 @@
 This is an Example for CI/CD using GitHub Actions
 Pre-Req:
+
 1. Sonarqube and Tomcat installed on GCP/AWS/Azure VM.
+   
+   Sonarqube_Instructions:
+   Pre-Req: Java 1.8 and 2GB RAM min
+
+- Install/Check Java Version
+- yum install java
+
+[root@jenkins-3 ~]# java -version
+openjdk version "1.8.0_312"
+OpenJDK Runtime Environment (build 1.8.0_312-b07)
+OpenJDK 64-Bit Server VM (build 25.312-b07, mixed mode)
+
+- cd /opt
+- yum install wget unzip -y
+- wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.7.zip
+- unzip sonarqube-7.7.zip
+- useradd sonar
+- visudo
+  sonar ALL=(ALL) NOPASSWD:ALL
+- save and exit
+- chown -R sonar:sonar /opt/sonarqube-7.7/
+- chmod -R 775 /opt/sonarqube-7.7/
+- Change to Sonar user
+  su - sonar
+  cd /opt/sonarqube-7.7
+  cd bin
+  cd linux-x86-64/
+
+- Start Sonar service
+  ./sonar.sh start
+
+- Check status
+  ./sonar.sh status
+
+- Aceesing Sonarqube
+  http://IP of the server:9000
+  ex:http://34.125.172.7:9000/
+
+- Login to Sonarqube server with default login as 'admin/admin' by default
+- Go to Administration -> Configuration -> Security and Enable Force user authentication so that it will ask for login before displaying any details.
+
+- Installing Tomcat on VM
+
+- yum install tomcat tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp -y
+- systemctl start tomcat
+- systemctl status tomcat
+- systemctl enable tomcat
+- access using IP:8080 to verify the installaion successfull or not
+- enable tomcat as service
+  cd /usr/share/tomcat/conf
+  vi tomcat-users.xml
+
+and uncomment the section as below
+
+<user name="admin" password="adminadmin" roles="admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status" />
+</tomcat-users>
+
+save and exit. restart the tomcat service
+- systemctl restart tomcat
+- Now go to the tomcat web page and login using credentials that are available in the last line of the tomcat-users.xml file.
+
+User: admin    password: adminadmin
+
 2. Create secrets in Repository Settings (SONAR_TOKEN,SONAR_HOST_URL,TOM_USERNAME and TOM_PASSWD)
-SONAR_TOKEN = username for SONARQUBE
-SONAR_HOST_URL = SONARQUBE server URL
-TOM_USERNAME = admin
-TOM_PASSWD = tomcat admin's passwd
+- SONAR_TOKEN = username for SONARQUBE
+- SONAR_HOST_URL = SONARQUBE server URL
+- TOM_USERNAME = admin
+- TOM_PASSWD = tomcat admin's passwd
+
 3. Add a file sonar-project.properties using the below code
+
 sonar.projectKey=mvn-b6
 sonar.java.binaries=.
 sonar.exclusions=build/**
+
 4. Create the Actions workflow using Build with Maven and Add the tasks accordingly.
